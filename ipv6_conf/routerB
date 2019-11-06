@@ -1,0 +1,74 @@
+ROUTING TABLE : 
+B#show ipv6 route isis 
+IPv6 Routing Table - 5 entries
+Codes: C - Connected, L - Local, S - Static, R - RIP, B - BGP
+       U - Per-user Static route
+       I1 - ISIS L1, I2 - ISIS L2, IA - ISIS interarea, IS - ISIS summary
+       O - OSPF intra, OI - OSPF inter, OE1 - OSPF ext 1, OE2 - OSPF ext 2
+       ON1 - OSPF NSSA ext 1, ON2 - OSPF NSSA ext 2
+       D - EIGRP, EX - EIGRP external
+I2  2001:BBBB::/64 [115/20]
+     via FE80::C803:11FF:FE65:0, FastEthernet0/0
+
+==========================================================================
+CLNS NEIBHORS : 
+B#show clns neighbors detail 
+
+System Id      Interface   SNPA                State  Holdtime  Type Protocol
+C              Fa0/0       ca03.1165.0000      Up     27        L2   M-ISIS
+  Area Address(es): 49.0002
+  IP Address(es):  192.168.42.2*
+  IPv6 Address(es): FE80::C803:11FF:FE65:0
+  Uptime: 01:04:39
+  NSF capable
+  Topology: IPv4, IPv6
+E              Fa1/1       ca05.1b0a.001d      Up     21        L2   IS-IS
+  Area Address(es): 49.0003
+  IP Address(es):  192.168.49.1*
+  Uptime: 01:04:53
+  NSF capable
+A              Fa1/0       ca02.1156.001c      Up     21        L1   IS-IS
+  Area Address(es): 49.0001
+  IP Address(es):  192.168.111.11*
+  Uptime: 01:04:50
+  NSF capable
+
+===========================================================================
+RIB : 
+
+B#show isis ipv6 rib 
+IS-IS IPv6 process "", local RIB
+  2001:AAAA::/64
+    via FE80::C803:11FF:FE65:0/FastEthernet0/0, type L2  metric 20 LSP [4/9]
+* 2001:BBBB::/64
+    via FE80::C803:11FF:FE65:0/FastEthernet0/0, type L2  metric 20 LSP [4/9]
+
+=========================================================================
+
+B#show isis ipv6 topology 
+
+IS-IS IPv6 paths to level-1 routers
+System Id            Metric     Next-Hop             Interface   SNPA
+A                    **
+B                    --
+
+IS-IS IPv6 paths to level-2 routers
+System Id            Metric     Next-Hop             Interface   SNPA
+B                    --
+C                    10         C                    Fa0/0       ca03.1165.0000 
+E                    **
+B#
+
+
+========================================================================
+traceroute vers D:
+
+B#traceroute 2001:BBBB::1
+
+Type escape sequence to abort.
+Tracing the route to 2001:BBBB::1
+
+  1 2001:AAAA::2 8 msec 24 msec 36 msec
+  2 2001:BBBB::1 12 msec 96 msec 44 msec
+B#
+

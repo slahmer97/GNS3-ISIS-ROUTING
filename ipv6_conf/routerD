@@ -1,0 +1,48 @@
+D#show ipv route isis 
+IPv6 Routing Table - 5 entries
+Codes: C - Connected, L - Local, S - Static, R - RIP, B - BGP
+       U - Per-user Static route
+       I1 - ISIS L1, I2 - ISIS L2, IA - ISIS interarea, IS - ISIS summary
+       O - OSPF intra, OI - OSPF inter, OE1 - OSPF ext 1, OE2 - OSPF ext 2
+       ON1 - OSPF NSSA ext 1, ON2 - OSPF NSSA ext 2
+       D - EIGRP, EX - EIGRP external
+I1  ::/0 [115/10]
+     via FE80::C803:11FF:FE65:1C, FastEthernet1/0
+D#
+===============================================================================
+D#show isis ipv6 rib 
+IS-IS IPv6 process "", local RIB
+  2001:BBBB::/64
+    via FE80::C803:11FF:FE65:1C/FastEthernet1/0, type L1  metric 20 LSP [2/E]
+* ::/0
+    via FE80::C803:11FF:FE65:1C/FastEthernet1/0, type L1  metric 10 LSP [0/D]
+D#
+
+============================================================================
+D#show isis ipv6 topology 
+
+IS-IS IPv6 paths to level-1 routers
+System Id            Metric     Next-Hop             Interface   SNPA
+D                    --
+C                    10         C                    Fa1/0       ca03.1165.001c 
+D#
+=============================================================================
+D#show isis database 
+
+IS-IS Level-1 Link State Database:
+LSPID                 LSP Seq Num  LSP Checksum  LSP Holdtime      ATT/P/OL
+D.00-00             * 0x0000000E   0x9AFE        485               0/0/0
+C.00-00               0x00000012   0x483E        848               1/0/0
+
+============================================================================
+
+Traceroute vers B : 
+D#traceroute 2001:AAAA::1
+
+Type escape sequence to abort.
+Tracing the route to 2001:AAAA::1
+
+  1 2001:BBBB::2 8 msec 12 msec 68 msec
+  2 2001:AAAA::1 44 msec 56 msec 24 msec
+D#
+

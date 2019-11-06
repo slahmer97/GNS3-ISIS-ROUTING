@@ -1,0 +1,37 @@
+D#traceroute 2001:AAAA::1
+
+Type escape sequence to abort.
+Tracing the route to 2001:AAAA::1
+
+  1 2001:BBBB::2 8 msec 12 msec 68 msec
+  2 2001:AAAA::1 44 msec 56 msec 24 msec
+D#  
+=================================================================================>> LINK FAILURE
+D#traceroute 2001:AAAA::1   
+
+Type escape sequence to abort.
+Tracing the route to 2001:AAAA::1
+
+  1 2001:BBBB::2 40 msec 12 msec 36 msec
+  2  *  *  * 
+  3 2001:BBBB::2 !H 
+
+D#traceroute 192.168.49.2
+
+Type escape sequence to abort.
+Tracing the route to 192.168.49.2
+
+  1 192.168.222.30 36 msec 20 msec 16 msec
+  2 192.168.48.1 84 msec 16 msec 28 msec
+  3 192.168.49.2 64 msec 16 msec 32 msec
+D#traceroute 192.168.111.20
+
+Type escape sequence to abort.
+Tracing the route to 192.168.111.20
+
+  1 192.168.222.30 32 msec 8 msec 12 msec
+  2 192.168.48.1 12 msec 20 msec 24 msec
+  3 192.168.49.2 20 msec 28 msec 40 msec
+D#
+
+

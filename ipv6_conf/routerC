@@ -1,0 +1,71 @@
+C#show ipv6 route isis 
+IPv6 Routing Table - 6 entries
+Codes: C - Connected, L - Local, S - Static, R - RIP, B - BGP
+       U - Per-user Static route
+       I1 - ISIS L1, I2 - ISIS L2, IA - ISIS interarea, IS - ISIS summary
+       O - OSPF intra, OI - OSPF inter, OE1 - OSPF ext 1, OE2 - OSPF ext 2
+       ON1 - OSPF NSSA ext 1, ON2 - OSPF NSSA ext 2
+       D - EIGRP, EX - EIGRP external
+C#
+
+
+=======================================================================
+C#show clns neighbors detail 
+
+System Id      Interface   SNPA                State  Holdtime  Type Protocol
+D              Fa1/0       ca04.1174.001c      Up     23        L1   M-ISIS
+  Area Address(es): 49.0002
+  IP Address(es):  192.168.222.22*
+  IPv6 Address(es): FE80::C804:11FF:FE74:1C
+  Uptime: 01:11:59
+  NSF capable
+  Topology: IPv4, IPv6
+E              Fa1/1       ca05.1b0a.0000      Up     24        L2   IS-IS
+  Area Address(es): 49.0003
+  IP Address(es):  192.168.48.1*
+  Uptime: 01:12:07
+  NSF capable
+B              Fa0/0       ca01.1146.0000      Up     26        L2   M-ISIS
+  Area Address(es): 49.0001
+  IP Address(es):  192.168.42.1*
+  IPv6 Address(es): FE80::C801:11FF:FE46:0
+  Uptime: 01:07:31
+  NSF capable
+  Topology: IPv4, IPv6
+C#
+
+==========================================================================
+C#show isis ipv6 rib 
+IS-IS IPv6 process "", local RIB
+  2001:AAAA::/64
+    via FE80::C801:11FF:FE46:0/FastEthernet0/0, type L2  metric 20 LSP [3/F]
+  2001:BBBB::/64
+    via FE80::C804:11FF:FE74:1C/FastEthernet1/0, type L1  metric 20 LSP [4/C]
+C#
+==========================================================================
+C#show isis ipv6 topology 
+
+IS-IS IPv6 paths to level-1 routers
+System Id            Metric     Next-Hop             Interface   SNPA
+D                    10         D                    Fa1/0       ca04.1174.001c 
+C                    --
+
+IS-IS IPv6 paths to level-2 routers
+System Id            Metric     Next-Hop             Interface   SNPA
+B                    10         B                    Fa0/0       ca01.1146.0000 
+C                    --
+E                    **
+===========================================================================
+C#show isis database 
+
+IS-IS Level-1 Link State Database:
+LSPID                 LSP Seq Num  LSP Checksum  LSP Holdtime      ATT/P/OL
+D.00-00               0x0000000E   0x9AFE        648               0/0/0
+C.00-00             * 0x00000012   0x483E        1015              1/0/0
+IS-IS Level-2 Link State Database:
+LSPID                 LSP Seq Num  LSP Checksum  LSP Holdtime      ATT/P/OL
+B.00-00               0x00000016   0x427F        872               0/0/0
+C.00-00             * 0x00000017   0x7506        1130              0/0/0
+E.00-00               0x0000000D   0x7456        1035              0/0/0
+
+

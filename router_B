@@ -1,0 +1,124 @@
+CLNS : 
+B#show clns 
+Global CLNS Information:
+  2 Interfaces Enabled for CLNS
+  NET: 49.0001.1921.6800.1002.00
+  Configuration Timer: 60, Default Holding Timer: 300, Packet Lifetime 64
+  ERPDU's requested on locally generated packets
+  Running IS-IS in IP-only mode (CLNS forwarding not allowed)
+
+======================================================================
+NEIGHBORS : 
+B#show isis neighbors 
+
+System Id      Type Interface IP Address      State Holdtime Circuit Id
+C              L2   Fa0/0     192.168.42.2    UP    23       00
+A              L1   Fa1/0     192.168.111.11  UP    24       00
+
+======================================================================
+TOPOLOGY : 
+
+B#show isis topology 
+
+IS-IS paths to level-1 routers
+System Id            Metric     Next-Hop             Interface   SNPA
+A                    10         A                    Fa1/0       ca02.1156.001c 
+B                    --
+
+IS-IS paths to level-2 routers
+System Id            Metric     Next-Hop             Interface   SNPA
+A                    **
+B                    --
+C                    10         C                    Fa0/0       ca03.1165.0000 
+
+======================================================================
+DATABASE : 
+
+B#show isis database detail 
+
+IS-IS Level-1 Link State Database:
+LSPID                 LSP Seq Num  LSP Checksum  LSP Holdtime      ATT/P/OL
+A.00-00               0x0000000B   0x2581        1107              0/0/0
+  Area Address: 49.0001
+  NLPID:        0xCC 
+  Hostname: A
+  IP Address:   192.168.1.1
+  Metric: 10         IP 192.168.111.0 255.255.255.0
+  Metric: 0          IP 192.168.1.1 255.255.255.255
+  Metric: 10         IS B.00
+B.00-00             * 0x00000005   0x7C21        1059              1/0/0
+  Area Address: 49.0001
+  NLPID:        0xCC 
+  Hostname: B
+  IP Address:   192.168.2.2
+  Metric: 10         IP 192.168.111.0 255.255.255.0
+  Metric: 0          IP 192.168.2.2 255.255.255.255
+  Metric: 10         IS A.00
+IS-IS Level-2 Link State Database:
+LSPID                 LSP Seq Num  LSP Checksum  LSP Holdtime      ATT/P/OL
+A.00-00               0x00000008   0x0A37        0 (509)           0/0/0
+B.00-00             * 0x00000004   0xF9EC        402               0/0/0
+  Area Address: 49.0001
+  NLPID:        0xCC 
+  Hostname: B
+  IP Address:   192.168.2.2
+  Metric: 10         IP 192.168.42.0 255.255.255.0
+  Metric: 10         IS C.00
+  Metric: 10         IP 192.168.1.1 255.255.255.255
+  Metric: 0          IP 192.168.2.2 255.255.255.255
+  Metric: 10         IP 192.168.111.0 255.255.255.0
+C.00-00               0x0000000A   0xA9C4        1002              0/0/0
+  Area Address: 49.0002
+  NLPID:        0xCC 
+  Hostname: C
+  IP Address:   192.168.2.2
+  Metric: 10         IP 192.168.42.0 255.255.255.0
+  Metric: 10         IS B.00
+  Metric: 10         IP 192.168.2.1 255.255.255.255
+  Metric: 0          IP 192.168.2.2 255.255.255.255
+  Metric: 10         IP 192.168.222.0 255.255.255.0
+B#
+
+====================================================================
+ROUTE ALL : 
+
+B#show ip route 
+Codes: C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area 
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route
+
+Gateway of last resort is not set
+
+C    192.168.42.0/24 is directly connected, FastEthernet0/0
+C    192.168.111.0/24 is directly connected, FastEthernet1/0
+     192.168.1.0/32 is subnetted, 1 subnets
+i L1    192.168.1.1 [115/10] via 192.168.111.11, FastEthernet1/0
+     192.168.2.0/32 is subnetted, 2 subnets
+C       192.168.2.2 is directly connected, Loopback1
+i L2    192.168.2.1 [115/20] via 192.168.42.2, FastEthernet0/0
+i L2 192.168.222.0/24 [115/20] via 192.168.42.2, FastEthernet0/0
+
+===================================================================
+ROUTE : 
+
+B#show ip route isis 
+     192.168.1.0/32 is subnetted, 1 subnets
+i L1    192.168.1.1 [115/10] via 192.168.111.11, FastEthernet1/0
+     192.168.2.0/32 is subnetted, 2 subnets
+i L2    192.168.2.1 [115/20] via 192.168.42.2, FastEthernet0/0
+i L2 192.168.222.0/24 [115/20] via 192.168.42.2, FastEthernet0/0
+
+==================================================================
+TRACE ROUTE : 
+B#traceroute 192.168.222.22   
+
+Type escape sequence to abort.
+Tracing the route to 192.168.222.22
+
+  1 192.168.42.2 28 msec 12 msec 8 msec
+  2 192.168.222.22 12 msec 20 msec 20 msec
+
